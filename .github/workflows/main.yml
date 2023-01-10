@@ -37,11 +37,11 @@ jobs:
       with:
         name: testwar
     - name: war scp to win server
-      env: 
+      with: 
         SYKWON: ${{ secrets.PEMKEY }}
         CH: ${{ secrets.NOCHECK }}
         IP: ${{ secrets.HOST }}
-      run: |
+    - run: |
         ls  
         sshpass -p $SYKWON scp helloworld-0.1-dev.war sykwon@$IP:/
         #cd \Users\sykwon\Downloads
