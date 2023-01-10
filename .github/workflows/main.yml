@@ -41,7 +41,6 @@ jobs:
         SYKWON: ${{ secrets.PEMKEY }}
         CH: ${{ secrets.NOCHECK }}
       run: |
-        echo ${{ secrets.SYKWON }} > sykwon.pem
-        scp -i sykwon.pem testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads -o $CH
+        scp -i $SYKWON testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads -o $CH
         cd \Users\sykwon\Downloads
         dir
