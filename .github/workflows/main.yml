@@ -13,7 +13,7 @@ jobs:
   in_container_build:
     runs-on: self-hosted
     container:
-      image: 192.168.1.130:5000/test2:3.0
+      image: 192.168.1.130:5000/test2:4.0
       options: --user root
     steps:
       - uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
     name: scp
     runs-on: self-hosted
     container:
-      image: 192.168.1.130:5000/test2:3.0
+      image: 192.168.1.130:5000/test2:4.0
     needs: in_container_build
     steps:
     - uses: actions/download-artifact@v3
