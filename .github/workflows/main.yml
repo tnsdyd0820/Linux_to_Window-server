@@ -13,13 +13,13 @@ jobs:
   in_container_build:
     runs-on: self-hosted
     container:
-      image: 192.168.1.130:5000/ant:1.0
+      image: 192.168.1.130:5000/test:2.0
       options: --user root
     steps:
       - uses: actions/checkout@v3
       - name: Build with Ant
         run: |
-          ant -noinput -buildfile build/build.xml
+          /apache-ant-1.10.12/bin/ant -noinput -buildfile build/build.xml
           whoami
       - uses: actions/upload-artifact@v3
         with:
@@ -30,7 +30,7 @@ jobs:
     name: scp
     runs-on: self-hosted
     container:
-      image: 192.168.1.130:5000/ant:1.0
+      image: 192.168.1.130:5000/test:2.0
     needs: in_container_build
     steps:
     - uses: actions/download-artifact@v3
@@ -39,8 +39,9 @@ jobs:
     - name: war scp to win server
       env: 
         SYKWON: ${{ secrets.PEMKEY }}
+        CH: ${{ secrets.NOCHECK }}
       run: |
         echo ${{ secrets.SYKWON }} > sykwon.pem
-        scp -i sykwon.pem testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads
+        scp -i sykwon.pem testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads $CH
         cd \Users\sykwon\Downloads
         dir
