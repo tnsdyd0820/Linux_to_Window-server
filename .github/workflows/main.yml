@@ -1,0 +1,43 @@
+name: source_ant_test_ubuntu
+
+on:
+  workflow_dispatch: 
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+        
+
+jobs:
+  in_container_build:
+    runs-on: self-hosted
+    container:
+      image: 192.168.1.130:5000/ant:1.0
+      options: --user root
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build with Ant
+        run: |
+          ant/bin/ant -noinput -buildfile build/build.xml
+          whoami
+      - uses: actions/upload-artifact@v3
+        with:
+          name: testwar
+          path: build/build/helloworld-0.1-dev.war
+          
+  scp:
+    name: scp
+    runs-on: self-hosted
+    container:
+      image: 192.168.1.130:5000/ant:1.0
+    needs: in_container_build
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: testwar
+    - name: war scp to win server
+      run: |
+        scp -i ${{ PEMKEY }} testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads ${{ NOCHECK }}
+        cd \Users\sykwon\Downloads
+        dir
