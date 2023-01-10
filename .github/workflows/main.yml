@@ -39,6 +39,6 @@ jobs:
     - name: war scp to win server
       run: |
         echo ${{ secrets.PEMKEY }} > sykwon.pem
-        scp -i sykwon.pem testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads ${{ secrets.NOCHECK }}
+        scp -i sykwon.pem testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads
         cd \Users\sykwon\Downloads
         dir
