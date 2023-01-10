@@ -41,6 +41,6 @@ jobs:
         SYKWON: ${{ secrets.PEMKEY }}
         CH: ${{ secrets.NOCHECK }}
       run: |
-        'sshpass -p $SYKWON scp testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:\Users\sykwon\Downloads' 
+        'sshpass -p $SYKWON scp testwar/helloworld-0.1-dev.war sykwon@192.168.42.145:/'
         #cd \Users\sykwon\Downloads
         #dir
