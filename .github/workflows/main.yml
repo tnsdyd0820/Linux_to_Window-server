@@ -40,8 +40,9 @@ jobs:
       env: 
         SYKWON: ${{ secrets.PEMKEY }}
         CH: ${{ secrets.NOCHECK }}
+        HOST: ${{ secrets.HOST }}
       run: |
         ls  
-        sshpass -p $SYKWON scp helloworld-0.1-dev.war sykwon@192.168.42.145:/
+        sshpass -p $SYKWON scp helloworld-0.1-dev.war sykwon@$HOST:/
         #cd \Users\sykwon\Downloads
         #dir
